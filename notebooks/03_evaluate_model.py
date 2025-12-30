@@ -28,7 +28,7 @@ y_test = test_pdf["Class"]
 mlflow.set_experiment("/Shared/mlops_dev")
 runs = mlflow.search_runs(order_by=["start_time DESC"], max_results=1)
 
-model_uri = f"runs:/{runs.iloc[0].run_id}/model"
+model_uri = f"runs:/{runs.iloc[0].run_id}/classifier_pipeline"
 model = mlflow.sklearn.load_model(model_uri)
 
 # ----------------------------
