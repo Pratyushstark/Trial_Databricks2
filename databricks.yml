@@ -45,3 +45,12 @@ resources:
             base_parameters:
               env: dev
           compute: serverless
+
+        - task_key: register_promote_model
+          depends_on:
+            - task_key: evaluate_model
+          notebook_task:
+            notebook_path: notebooks/04_promote_to_staging.py
+            base_parameters:
+              env: dev
+          compute: serverless
