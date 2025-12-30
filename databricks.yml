@@ -4,7 +4,7 @@ bundle:
 targets:
   dev:
     workspace:
-      host: ${DATABRICKS_HOST}
+      host: https://dbc-292b7b7a-2dd0.cloud.databricks.com
 
 resources:
   jobs:
@@ -20,6 +20,4 @@ resources:
             spark_version: 14.3.x-scala2.12
             data_security_mode: SINGLE_USER
             num_workers: 0
-
-            # THIS enables serverless
             runtime_engine: SERVERLESS
