@@ -44,7 +44,7 @@ val_acc = accuracy_score(y_val, val_preds)
 # ----------------------------
 # MLflow logging with experiment tracking
 # ----------------------------
-EXPERIMENT_NAME = "mlops_dev"
+EXPERIMENT_NAME = "/Shared/mlops_dev"
 mlflow.set_experiment(EXPERIMENT_NAME)
 
 # Start a new MLflow run for the experiment
