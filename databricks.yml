@@ -13,11 +13,9 @@ resources:
 
       tasks:
         - task_key: run_hello_world
+
           notebook_task:
             notebook_path: notebooks/hello_world.py
 
-          new_cluster:
-            spark_version: 14.3.x-scala2.12
-            data_security_mode: SINGLE_USER
-            num_workers: 0
-            runtime_engine: SERVERLESS
+          compute: serverless
+
