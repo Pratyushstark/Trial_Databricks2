@@ -1,43 +1,31 @@
-name: Databricks CI
+name: Databricks Serverless CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
-  run-notebook:
+  deploy-and-run:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install Databricks CLI
+      - name: Install Databricks CLI (new)
         run: |
-          pip install databricks-cli
+          curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
 
-      - name: Configure Databricks CLI
+      - name: Configure Databricks auth
         run: |
-          databricks configure --token <<EOF
-          ${{ secrets.DATABRICKS_HOST }}
-          ${{ secrets.DATABRICKS_TOKEN }}
-          EOF
+          echo "DATABRICKS_HOST=${{ secrets.DATABRICKS_HOST }}" >> $GITHUB_ENV
+          echo "DATABRICKS_TOKEN=${{ secrets.DATABRICKS_TOKEN }}" >> $GITHUB_ENV
 
-      - name: Import notebook
-        run: |
-          databricks workspace import \
-            notebooks/hello_world.py \
-            /Shared/hello_world \
-            --language PYTHON \
-            --overwrite
+      - name: Validate bundle
+        run: databricks bundle validate
 
-      - name: Run notebook
-        run: |
-          databricks runs submit --json '{
-            "run_name": "hello-world-ci",
-            "existing_cluster_id": "bddb47e14a3a86c6",
-            "notebook_task": {
-              "notebook_path": "/Shared/hello_world"
-            }
-          }'
+      - name: Deploy bundle
+        run: databricks bundle deploy -t dev
+
+      - name: Run job
+        run: databricks bundle run hello_world_job -t dev
