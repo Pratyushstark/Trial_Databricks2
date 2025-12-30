@@ -23,7 +23,7 @@ resources:
           depends_on:
             - task_key: data_ingestion
           notebook_task:
-            notebook_path: notebooks/00_data_validation_py
+            notebook_path: notebooks/00_data_validation.py
             base_parameters:
               env: dev
           compute: serverless
