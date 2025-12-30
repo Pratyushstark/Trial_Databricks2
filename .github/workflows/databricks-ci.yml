@@ -12,7 +12,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install Databricks CLI (new)
+      - name: Install Databricks CLI
         run: |
           curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
 
@@ -28,4 +28,4 @@ jobs:
         run: databricks bundle deploy -t dev
 
       - name: Run job
-        run: databricks bundle run hello_world_job -t dev
+        run: databricks bundle run mlops_dev_pipeline -t dev
