@@ -25,7 +25,7 @@ y_test = test_pdf["Class"]
 # ----------------------------
 # Load latest model
 # ----------------------------
-mlflow.set_experiment("/mlops/dev")
+mlflow.set_experiment("/Shared/mlops_dev")
 runs = mlflow.search_runs(order_by=["start_time DESC"], max_results=1)
 
 model_uri = f"runs:/{runs.iloc[0].run_id}/model"
